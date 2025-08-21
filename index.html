@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: "Soothing Neutrals" -->
-    <!-- Application Structure Plan: The SPA is designed with a top-down narrative flow. It starts with a summary, then allows users to dive deeper via a clear navigation bar (Summary, Skills, Experience, Projects, Certifications, Education). This structure guides the user from a general overview to specific evidence of expertise. The interactive timeline, project cards, and certification links allow for non-linear exploration. -->
+    <!-- Application Structure Plan: The SPA is designed with a top-down narrative flow. It starts with a summary, then allows users to dive deeper via a clear navigation bar (Summary, Skills, Experience, Projects, Certifications, Education, Full Resume). This structure guides the user from a general overview to specific evidence of expertise. The interactive timeline, project cards, and certification links allow for non-linear exploration, with a final section for a complete, printable view. -->
     <!-- Visualization & Content Choices: 
         - Professional Summary -> Inform -> Text Block -> No interaction -> Clear introduction.
         - Key Skills -> Organize/Compare -> Horizontal Bar Chart -> Hover for details -> Chart.js visually quantifies skill breadth.
@@ -18,6 +18,7 @@
         - Highlighted Projects -> Inform/Compare -> Card Grid -> Static -> Extracts quantifiable achievements into digestible cards.
         - Certifications -> Inform/Validate -> Card Grid with Links -> Click to verify -> Organizes credentials and provides direct links for validation.
         - Education -> Inform -> Card Layout -> Static -> Clearly presents formal academic background.
+        - Full Resume -> Inform/Export -> Preformatted Text Block -> Print button -> Allows users to easily print the traditional resume format.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -77,33 +78,58 @@
                 height: 400px;
             }
         }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printable-area, #printable-area * {
+                visibility: visible;
+            }
+            #printable-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .no-print {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-5xl">
         
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">W. Arnaldo Carrasco</h1>
-            <p class="text-xl md:text-2xl text-gray-600 mt-2">Data Engineer & BI Consultant</p>
-            <div class="mt-4 flex justify-center items-center space-x-4 text-gray-500 flex-wrap">
-                <a href="mailto:nachocarrasco5577@gmail.com" class="hover:text-blue-600">📧 nachocarrasco5577@gmail.com</a>
-                <span class="text-gray-300 hidden sm:inline">|</span>
-                <span class="mt-2 sm:mt-0">📱 +54 261 5373057</span>
-                <span class="text-gray-300 hidden sm:inline">|</span>
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 mt-2 sm:mt-0">🌐 LinkedIn</a>
-            </div>
-            <div class="mt-3 text-sm text-gray-500">
-                <p>Microsoft Certified: Power BI Data Analyst Associate | Power Apps Certified | Qlik Developer</p>
+        <header class="mb-12 no-print">
+            <div class="flex flex-col md:flex-row items-center justify-center md:justify-start gap-8">
+                <div class="flex-shrink-0">
+                    <img class="h-40 w-40 rounded-full object-cover shadow-lg" src="https://i.ibb.co/L5B0GzQ/foto-perfil.jpg" alt="Foto de perfil de W. Arnaldo Carrasco">
+                </div>
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800">W. Arnaldo Carrasco</h1>
+                    <p class="text-xl md:text-2xl text-gray-600 mt-2">Data Engineer & BI Consultant</p>
+                    <div class="mt-4 flex justify-center md:justify-start items-center space-x-4 text-gray-500 flex-wrap">
+                        <a href="mailto:nachocarrasco5577@gmail.com" class="hover:text-blue-600">📧 nachocarrasco5577@gmail.com</a>
+                        <span class="text-gray-300 hidden sm:inline">|</span>
+                        <span class="mt-2 sm:mt-0">📱 +54 261 5373057</span>
+                        <span class="text-gray-300 hidden sm:inline">|</span>
+                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600 mt-2 sm:mt-0">🌐 LinkedIn</a>
+                    </div>
+                    <div class="mt-3 text-sm text-gray-500">
+                        <p>Microsoft Certified: Power BI Data Analyst Associate | Power Apps Certified | Qlik Developer</p>
+                    </div>
+                </div>
             </div>
         </header>
 
-        <nav class="flex justify-center border-b mb-12 flex-wrap">
-            <button class="nav-link active py-4 px-3 sm:px-4 text-sm sm:text-lg font-medium" data-target="summary">Summary</button>
-            <button class="nav-link py-4 px-3 sm:px-4 text-sm sm:text-lg font-medium" data-target="skills">Skills</button>
-            <button class="nav-link py-4 px-3 sm:px-4 text-sm sm:text-lg font-medium" data-target="experience">Experience</button>
-            <button class="nav-link py-4 px-3 sm:px-4 text-sm sm:text-lg font-medium" data-target="projects">Projects</button>
-            <button class="nav-link py-4 px-3 sm:px-4 text-sm sm:text-lg font-medium" data-target="certifications">Certifications</button>
-            <button class="nav-link py-4 px-3 sm:px-4 text-sm sm:text-lg font-medium" data-target="education">Education</button>
+        <nav class="flex justify-center border-b mb-12 flex-wrap no-print">
+            <button class="nav-link active py-4 px-2 sm:px-3 text-xs sm:text-lg font-medium" data-target="summary">Summary</button>
+            <button class="nav-link py-4 px-2 sm:px-3 text-xs sm:text-lg font-medium" data-target="skills">Skills</button>
+            <button class="nav-link py-4 px-2 sm:px-3 text-xs sm:text-lg font-medium" data-target="experience">Experience</button>
+            <button class="nav-link py-4 px-2 sm:px-3 text-xs sm:text-lg font-medium" data-target="projects">Projects</button>
+            <button class="nav-link py-4 px-2 sm:px-3 text-xs sm:text-lg font-medium" data-target="certifications">Certifications</button>
+            <button class="nav-link py-4 px-2 sm:px-3 text-xs sm:text-lg font-medium" data-target="education">Education</button>
+            <button class="nav-link py-4 px-2 sm:px-3 text-xs sm:text-lg font-medium" data-target="full-resume">Full Resume</button>
         </nav>
 
         <main>
@@ -154,6 +180,112 @@
                     This section outlines my formal academic and technical training, which provides the foundational knowledge for my professional expertise.
                 </p>
                 <div id="education-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto"></div>
+            </section>
+
+            <section id="full-resume" class="content-section">
+                <div class="text-center mb-8 no-print">
+                    <button id="print-button" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors">
+                        Print Resume
+                    </button>
+                </div>
+                <div id="printable-area" class="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+<pre class="whitespace-pre-wrap text-sm" style="font-family: 'Inter', sans-serif;">
+W. Arnaldo Carrasco
+Data Engineer & BI Consultant
+
+Microsoft Certified: Power BI Data Analyst Associate | Power Apps Certified | Qlik Developer
+
+📧 datasummitmza@gmail.com | 📱 +54 261 5373057 | 🌐 LinkedIn
+
+Professional Summary
+Data Engineer & BI Consultant with proven experience delivering end-to-end data solutions (Power BI, Python, SQL, Power Apps). Specialized in data modeling, automation, and dashboarding that drive decision-making and operational efficiency. Strong background in both technical development and leadership, having delivered projects for multinational companies (McCain, Janssen, RIPSA, Coty) and government institutions.
+
+Key Skills
+BI & Analytics: Power BI (certified), Qlik, Looker Studio
+Data Engineering: Python, SQL, Spark, Data Warehousing
+Automation: Power Apps, Power Automate, AppSheet
+Soft Skills: Leadership, Project Management, Cross-functional collaboration
+Languages: Spanish (native), English (B2)
+
+Professional Experience
+Binetz | Python Developer, Data Engineer, BI Consultant
+June 2024 – Present (Full-time) | Buenos Aires, Argentina
+- Reduced HR process time by 30% via Power Apps & Power Automate solutions for McCain.
+- Designed 3 BI dashboards improving internal reporting efficiency.
+- Built Spark-based data warehouse for RIPSA, automating normalization processes.
+- Developed and deployed Power Apps applications enhancing operational workflows.
+- Automated Excel file processing from SharePoint for Coty using Databricks.
+- Created a data model for Coty combining Spark (SharePoint data) and SQL (Oracle system data).
+
+Itiers | Data Solutions Consultant
+June 2024 – Present (Freelance) | Mendoza, Argentina
+- Migrated proprietary dashboards to Power BI, improving accessibility by 40%.
+- Led 911 call clustering project using Python (K-means) to optimize police resource allocation.
+- Transformed and optimized Qlik dashboards to Power BI for a fuel transport company.
+- Developed a data warehouse for Banco de Tierra del Fuego using Apache Hive.
+- Integrated a C# script via Azure Function for LOVISA to extract API data, applying GRCP privacy filters, and consolidated results into a historical database for long-term storage.
+- Designed a data model in Python integrating project and funding data from Airtable with Excel and TXT sources, and developed a Power BI dashboard to analyze the consolidated information.
+
+Ministry of Security – Mendoza | Python Developer & BI Analyst
+Feb 2022 – Jun 2024 | Mendoza, Argentina
+- Consolidated 8 disparate databases (3 PostgreSQL, 3 Oracle, 1 MySQL, 1 MongoDB) from different departments, each with distinct dimensional naming but containing department-specific events. Built a PostgreSQL data warehouse using Pentaho, unified dimensional structures with Python and the Fuzzy library to accelerate integration, and redesigned over 25 Power BI dashboards based on this unified warehouse.
+- Automated biometric system error detection using Python.
+- Maintained and optimized 25+ Power BI dashboards.
+- Automated the stolen cars capture request process. Previously, data was manually downloaded and emailed to the national system, which required a TXT file with strict character limits and tab spacing. Using Python and Windows scheduled tasks, automated the extraction, processing, TXT creation, and email sending, reducing 2.5 hours of daily administrative work.
+
+OSSEG – Health Insurance Workers | Data Engineer
+Mar 2021 – 2022 | Mendoza, Argentina
+- Implemented data warehouse integrating Excel reports & server migrations.
+- Maintained database operations ensuring integrity and efficiency.
+- Designed KPIs supporting financial strategic decisions.
+
+DataSummit | Data Analyst & Data Engineer (Freelance)
+Jan 2020 – Present | Argentina
+- Founder of DataSummit, a company focused on providing data and application services for SMEs.
+- Created BI dashboards, CRM systems, and cloud-based applications (AppSheet).
+- Delivered custom solutions: sales system, stock management, and scheduling apps.
+- Developed CRM systems for a prosecutor’s office and a Spanish construction firm.
+- Developed subscription-based products using AppSheet, including:
+  - A property management tool for short-term rentals.
+  - A digital clinical history app for psychologists and clinics.
+- Currently maintain and sell these applications by subscription to professionals and SMEs.
+
+City Hall of Mendoza | Head of Biostatistics & Community Diagnosis
+Feb 2016 – Feb 2022 | Mendoza, Argentina
+- Led a team to standardize health department data, training staff in good practices.
+- Built Looker Studio dashboards for real-time health data monitoring.
+- Coordinated logistics of Mendoza’s main COVID-19 vaccination site (2021).
+- Inaugurated the Health Situation Room in collaboration with the Pan American Health Organization (OPS). Centralized health, labor, environmental, and other city data with interactive dashboards for cross-sectoral analysis (2015).
+- Created an appointment management application for five public health centers serving uninsured patients. Implemented via WhatsApp and AppSheet, automating scheduling and reducing in-person requests (2017).
+- Developed an offline data collection AppSheet application for Andean outposts without internet connectivity. Standardized data entry, added geospatial controls, and mapped locations, enabling cross-departmental policies (2018).
+- Expanded the Health Situation Room into the Government Data Integration Center. Unified data across government areas (education, sports, social action, youth, etc.), implemented dashboards on Google Sites with Looker Studio, and created a central secure repository enabling transversal managerial views (2019).
+
+Huarpe Construcciones | Administrative & Accounting Assistant
+Jan 2015 – Dec 2015 | Almería, Spain
+- Managed company accounting and administrative tasks.
+- Developed Excel & VBA models with PivotTables and automation to streamline expense tracking.
+- Built reporting system covering active/inactive projects, assigned staff, material purchases, and distribution.
+- Created a material reception check-in system for drivers, improving control and transparency in operations.
+
+Education
+- University of Congreso: Bachelor's Degree in Psychology · (March 2014 - December 2020)
+- Egg Education: Full Stack Web Development, Programación informática · (October 2021 - September 2022)
+
+Certifications
+- Qlik Sense Developer Certified
+- Microsoft Certified: Power BI Data Analyst Associate
+- Microsoft Power Apps Certified
+- Total Python: Advance Programming
+- Google Analytics Academy: Introduction To Data Studio
+- Alura Latam: Data Modeling Training
+- Alura Latam: SQL with MYSQL
+- Alura Latam: Python for Data Science
+- EGG Education: Full Stack Web Development
+- Alura Latam: Digital Entrepreneurship
+- Alura Latam: Business Agility
+- Alura Latam: Personal Development
+</pre>
+                </div>
             </section>
         </main>
     </div>
@@ -355,7 +487,12 @@
             educationGrid.appendChild(card);
         });
 
+        document.getElementById('print-button').addEventListener('click', () => {
+            window.print();
+        });
+
     </script>
 </body>
 </html>
+
 
